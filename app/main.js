@@ -482,6 +482,9 @@ ipcMain.on('finish-break', function (event, shouldPlaySound) {
 })
 
 ipcMain.on('save-setting', function (event, key, value) {
+  if (key === 'naturalBreaks') {
+    breakPlanner.naturalBreaks(value)
+  }
   settings.set(key, value)
   settingsWin.webContents.send('renderSettings', settings.data)
   appIcon.setContextMenu(getTrayMenu())
