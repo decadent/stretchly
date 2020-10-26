@@ -23,7 +23,7 @@ const allOptions = {
   duration: {
     long: '--duration',
     short: '-d',
-    description: 'Specify duration for pausing breaks (Pause only) [infinitely|until-morning|seconds (as number)]',
+    description: 'Specify duration for pausing breaks (Pause only) [indefinitely|until-morning|seconds (as number)]',
     withValue: true
   }
 }
@@ -60,7 +60,7 @@ const allCommands = {
 
 const allExamples = [{
   cmd: 'stretchly pause',
-  description: 'Pause breaks indefinitly'
+  description: 'Pause breaks indefinitely'
 },
 {
   cmd: 'stretchly pause -d 3600',
