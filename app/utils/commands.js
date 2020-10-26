@@ -23,7 +23,7 @@ const allOptions = {
   duration: {
     long: '--duration',
     short: '-d',
-    description: 'Specify duration for pausing breaks (Pause only) [indefinitely|until-morning|seconds (as number)]',
+    description: 'Specify duration for pausing breaks (Pause only) [indefinitely|until-morning|HHhMMm|HHh|MMm]',
     withValue: true
   }
 }
@@ -63,8 +63,16 @@ const allExamples = [{
   description: 'Pause breaks indefinitely'
 },
 {
-  cmd: 'stretchly pause -d 3600',
+  cmd: 'stretchly pause -d 60m',
   description: 'Pause breaks for one hour'
+},
+{
+  cmd: 'stretchly pause -d 1h',
+  description: 'Pause breaks for one hour'
+},
+{
+  cmd: 'stretchly pause -d 1h20m',
+  description: 'Pause breaks for one hour and twenty minutes'
 },
 {
   cmd: 'stretchly mini -T "Stretch up !"',
@@ -169,12 +177,7 @@ class Command {
         return new UntilMorning(settings).timeUntilMorning()
 
       default:
-        var seconds = Number.parseInt(this.options.duration)
-        if (isNaN(seconds)) {
-          // returning -1 indicates an invalid value
-          return -1
-        }
-        return seconds * 1000
+        return parseDuration(this.options.duration)
     }
   }
 
@@ -245,5 +248,21 @@ class Command {
     console.log([this.cmdHelp(), this.optionsHelp(), this.examplesHelp()].join(''))
   }
 }
+
+// this function should return -1 if duration can't be parsed
+function parseDuration (input) {
+  var result = input.toLowerCase().match(/(?:(\d+h))?(?:(\d+m))?/)
+  if (result === null || result[0] === "") {
+    return -1
+  }
+
+  const hours = result[1] ? Number.parseInt(result[1].slice(0, -1)) : 0
+  const minutes = result[2] ? Number.parseInt(result[2].slice(0, -1)) : 0
+  const total = hours * minToMs * 60 + minutes * minToMs
+
+  return isNaN(total) ? -1 : total
+}
+
+const minToMs = 60000
 
 module.exports = Command

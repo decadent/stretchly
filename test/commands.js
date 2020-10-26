@@ -37,4 +37,17 @@ describe('commands', () => {
     options.title.should.be.equal('test')
     options.noskip.should.be.equal(true)
   })
+
+  it('should parse a duration from args', () => {
+    const input = ['pause', '-d', '60m']
+    const cmd = new Command(input, '1.2.3')
+    cmd.durationToMs(null).should.be.equal(3600000)
+  })
+
+  it('should return -1 if duration not formated correcly', () => {
+    const input = ['pause', '-d', '10i20k']
+    const cmd = new Command(input, '1.2.3')
+    cmd.durationToMs(null).should.be.equal(-1)
+  })
+
 })
