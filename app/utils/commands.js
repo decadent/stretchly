@@ -252,7 +252,7 @@ class Command {
 // this function should return -1 if duration can't be parsed
 function parseDuration (input) {
   var result = input.toLowerCase().match(/(?:(\d+h))?(?:(\d+m))?/)
-  if (result === null || result[0] === "") {
+  if (result === null || result[0] === '') {
     return -1
   }
 

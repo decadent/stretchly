@@ -49,5 +49,4 @@ describe('commands', () => {
     const cmd = new Command(input, '1.2.3')
     cmd.durationToMs(null).should.be.equal(-1)
   })
-
 })
