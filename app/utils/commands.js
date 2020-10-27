@@ -253,19 +253,19 @@ class Command {
 function parseDuration (input) {
   if (input.match(/^\d+$/) != null) {
     const mins = Number.parseInt(input)
-    return mins * minToMs
+    const result = mins * minToMs
+    return result > 0 ? result : -1
   }
 
-  var result = input.toLowerCase().match(/(?:(\d+h))?(?:(\d+m))?/)
-  if (result === null || result[0] === '') {
+  const parts = input.toLowerCase().match(/^(?:(\d+h))?(?:(\d+m))?$/)
+  if (parts === null || parts[0] === '') {
     return -1
   }
 
-  const hours = result[1] ? Number.parseInt(result[1].slice(0, -1)) : 0
-  const minutes = result[2] ? Number.parseInt(result[2].slice(0, -1)) : 0
-  const total = hours * minToMs * 60 + minutes * minToMs
-
-  return isNaN(total) ? -1 : total
+  const hours = parts[1] ? Number.parseInt(parts[1].slice(0, -1)) : 0
+  const minutes = parts[2] ? Number.parseInt(parts[2].slice(0, -1)) : 0
+  const result = hours * minToMs * 60 + minutes * minToMs
+  return isNaN(result) || result <= 0 ? -1 : result
 }
 
 const minToMs = 60000
