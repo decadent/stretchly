@@ -31,11 +31,14 @@ describe('commands', () => {
   })
 
   it('should get options from a command', () => {
-    const opts = ['-T', 'test', '-n']
-    const cmd = new Command(['mini'], '1.2.3')
-    const options = cmd.getOpts(opts)
-    options.title.should.be.equal('test')
-    options.noskip.should.be.equal(true)
+    const cmd = new Command(['mini', '-T', 'test', '-n'], '1.2.3')
+    cmd.options.title.should.be.equal('test')
+    cmd.options.noskip.should.be.equal(true)
+  })
+
+  it('includes only the specified options in the resulting options object', () => {
+    const cmd = new Command(['mini', '-T', 'test'], '1.2.3')
+    cmd.options.should.deep.equal({ title: 'test' })
   })
 
   it.skip('errors out when an invalid command is given', () => {
