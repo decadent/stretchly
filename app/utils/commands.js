@@ -46,14 +46,14 @@ const allCommands = {
     description: 'Resume from a pause'
   },
   toggle: {
-    description: 'Toggle breaks between resume/paused'
+    description: 'Pause/unpause breaks'
   },
   mini: {
-    description: 'Skips to and customize next Mini Break',
+    description: 'Skip to the Mini Break, customize it',
     options: [allOptions.title, allOptions.noskip]
   },
   long: {
-    description: 'Skips to and customize next Long Break',
+    description: 'Skip to the Long Break, customize it',
     options: [allOptions.text, allOptions.title, allOptions.noskip]
   }
 }
@@ -75,16 +75,16 @@ const allExamples = [{
   description: 'Pause breaks for one hour and twenty minutes'
 },
 {
-  cmd: 'stretchly mini -T "Stretch up !"',
-  description: 'Skips to next Mini Break with "Stretch up!" title'
+  cmd: 'stretchly mini -T "Stretch up!"',
+  description: 'Start a Mini Break, with the title "Stretch up!"'
 },
 {
-  cmd: 'stretchly long -T "Stretch up !" --noskip',
-  description: 'Sets next Break title to "Stretch up!"'
+  cmd: 'stretchly long -T "Stretch up!" --noskip',
+  description: 'Set the next Break\'s title to "Stretch up!"'
 },
 {
-  cmd: 'stretchly long -T "Stretch up !" -t "Go stretch !"',
-  description: 'Skips to next long break, sets title to "Stretch up !" and text to "Go stretch !"'
+  cmd: 'stretchly long -T "Stretch up!" -t "Go stretch!"',
+  description: 'Start a long break, with the title "Stretch up!" and text "Go stretch!"'
 }]
 
 // Parse cmd line, check if valid and put variables in a dedicated object
