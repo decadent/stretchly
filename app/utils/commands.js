@@ -257,13 +257,13 @@ function parseDuration (input) {
     return result > 0 ? result : -1
   }
 
-  const parts = input.toLowerCase().match(/^(?:(\d+h))?(?:(\d+m))?$/)
+  const parts = input.toLowerCase().match(/^(?:(\d+)h)?(?:(\d+)m)?$/)
   if (parts === null || parts[0] === '') {
     return -1
   }
 
-  const hours = parts[1] ? Number.parseInt(parts[1].slice(0, -1)) : 0
-  const minutes = parts[2] ? Number.parseInt(parts[2].slice(0, -1)) : 0
+  const hours = parts[1] ? Number.parseInt(parts[1]) : 0
+  const minutes = parts[2] ? Number.parseInt(parts[2]) : 0
   const result = hours * minToMs * 60 + minutes * minToMs
   return isNaN(result) || result <= 0 ? -1 : result
 }
