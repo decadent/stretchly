@@ -23,7 +23,7 @@ const allOptions = {
   duration: {
     long: '--duration',
     short: '-d',
-    description: 'Specify duration for pausing breaks (Pause only) [indefinitely|until-morning|HHhMMm|HHh|MMm]',
+    description: 'Specify duration for pausing breaks (Pause only) [indefinitely|until-morning|HHhMMm|HHh|MMm|MM]',
     withValue: true
   }
 }
@@ -63,7 +63,7 @@ const allExamples = [{
   description: 'Pause breaks indefinitely'
 },
 {
-  cmd: 'stretchly pause -d 60m',
+  cmd: 'stretchly pause -d 60',
   description: 'Pause breaks for one hour'
 },
 {
@@ -251,6 +251,11 @@ class Command {
 
 // this function should return -1 if duration can't be parsed
 function parseDuration (input) {
+  if (input.match(/^\d+$/) != null) {
+    const mins = Number.parseInt(input)
+    return mins * minToMs
+  }
+
   var result = input.toLowerCase().match(/(?:(\d+h))?(?:(\d+m))?/)
   if (result === null || result[0] === '') {
     return -1
